@@ -1,13 +1,25 @@
-import { FETCH_POSTS } from "../constants/actionTypes";
+import { FETCH_POSTS, LOADING, ERROR } from "../constants/actionTypes";
 
 import * as api from "../api/index";
 
 export const getPosts = () => async (dispatch) => {
   try {
+    dispatch({ type: LOADING });
     const { data } = await api.fetchPosts();
 
     dispatch({ type: FETCH_POSTS, payload: data });
   } catch (e) {
-    console.log("could not get POSTS");
+    dispatch({ type: ERROR });
+  }
+};
+
+export const getPage = (page) => async (dispatch) => {
+  try {
+    dispatch({ type: LOADING });
+    const { data } = await api.fetchPage(page);
+
+    dispatch({ type: FETCH_POSTS, payload: data });
+  } catch (e) {
+    dispatch({ type: ERROR });
   }
 };
