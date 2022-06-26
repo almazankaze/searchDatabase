@@ -2,7 +2,7 @@ import { FETCH_POSTS, LOADING, ERROR } from "../constants/actionTypes";
 
 const postsReducer = (
   state = {
-    posts: { prev: {}, result: [], next: {} },
+    posts: { pages: 0, result: [], page: 1 },
     loading: false,
     error: false,
   },
@@ -13,9 +13,9 @@ const postsReducer = (
       return {
         ...state,
         posts: {
-          prev: action.payload.prev,
+          pages: action.payload.pages,
           result: action.payload.result,
-          next: action.payload.next,
+          page: action.payload.page,
         },
         loading: false,
         error: false,

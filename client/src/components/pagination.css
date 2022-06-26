@@ -1,0 +1,21 @@
+.btns-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 0.5em 0.75em;
+  margin-right: 0.75rem;
+  display: inline-block;
+  min-width: 50px;
+  background: var(--white);
+  border: 2px solid var(--main-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.active-btn {
+  background: var(--secondary-color);
+}

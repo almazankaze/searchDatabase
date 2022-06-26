@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getPage } from "../actions/posts";
 import Post from "./Post";
+import Pagination from "./Pagination";
 
 import "./post.css";
 
@@ -24,6 +25,11 @@ function PostsContainer() {
             <Post key={post._id} post={post} />
           ))}
         </div>
+
+        <Pagination
+          currentPage={myState.posts.page}
+          pages={myState.posts.pages}
+        />
       </div>
     );
   }

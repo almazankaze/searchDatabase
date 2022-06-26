@@ -19,12 +19,13 @@ export const getPage = async (req, res) => {
     const limit = parseInt(req.query.limit);
 
     const startIndex = (page - 1) * limit;
-    const endIndex = page * limit;
+    // const endIndex = page * limit;
 
     const result = {};
 
     const count = await Post.estimatedDocumentCount();
 
+    /*
     if (endIndex < count) {
       result.next = { page: page + 1, limit: limit };
     }
@@ -32,7 +33,10 @@ export const getPage = async (req, res) => {
     if (startIndex > 0) {
       result.prev = { page: page - 1, limit: limit };
     }
+    */
 
+    result.page = page;
+    result.pages = Math.ceil(count / limit);
     result.result = await Post.find().limit(limit).skip(startIndex).exec();
 
     res.status(200).json(result);
