@@ -5,17 +5,42 @@
 
 .btn {
   font-weight: 800;
+  text-align: center;
+  text-decoration: none;
   font-size: 0.75rem;
   padding: 0.5em 0.75em;
   margin-right: 0.75rem;
   display: inline-block;
-  min-width: 50px;
+  min-width: 48px;
   background: var(--white);
+  color: var(--black);
   border: 2px solid var(--main-color);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
+.btns-container .btn:last-child {
+  margin-right: 0;
+}
+
 .active-btn {
   background: var(--secondary-color);
+}
+
+.num-btn {
+  display: inline-block;
+}
+
+@media (max-width: 500px) {
+  .btn {
+    font-size: 0.625rem;
+    min-width: 36px;
+    padding: 0.5em;
+  }
+}
+
+@media (max-width: 300px) {
+  .num-btn {
+    display: none;
+  }
 }

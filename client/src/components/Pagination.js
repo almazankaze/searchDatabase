@@ -4,38 +4,48 @@ import { NavLink } from "react-router-dom";
 import "./pagination.css";
 
 function Pagination({ currentPage, pages }) {
-  console.log(currentPage);
   const addBtns = () => {
     let content = [];
-    const limit = 2;
+    let start = currentPage;
+    let end = start + 2;
 
-    content.push(
-      <NavLink key="prev" to="/characters">
-        <button className="btn" type="button">
-          prev
-        </button>
-      </NavLink>
-    );
+    if (currentPage > 1) start = currentPage - 1;
+    if (pages - currentPage < 3) end = pages;
 
-    for (let i = currentPage; i <= currentPage + limit; i++) {
+    if (currentPage !== 1) {
       content.push(
-        <NavLink key={i} to="/characters">
-          <button
-            className={currentPage === i ? "btn active-btn" : "btn"}
-            type="button"
-          >
-            {i}
-          </button>
+        <NavLink
+          className="btn"
+          key="prev"
+          to={`/characters?page=${currentPage - 1}`}
+        >
+          prev
+        </NavLink>
+      );
+    }
+
+    for (let i = start; i <= end; i++) {
+      content.push(
+        <NavLink
+          className={
+            currentPage === i ? "btn num-btn active-btn" : "btn num-btn"
+          }
+          key={i}
+          to={`/characters?page=${i}`}
+        >
+          {i}
         </NavLink>
       );
     }
 
     if (currentPage !== pages) {
       content.push(
-        <NavLink key="next" to="/characters">
-          <button className="btn" type="button">
-            next
-          </button>
+        <NavLink
+          className="btn"
+          key="next"
+          to={`/characters?page=${currentPage + 1}`}
+        >
+          next
         </NavLink>
       );
     }

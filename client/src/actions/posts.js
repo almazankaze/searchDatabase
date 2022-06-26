@@ -15,6 +15,8 @@ export const getPosts = () => async (dispatch) => {
 
 export const getPage = (page) => async (dispatch) => {
   try {
+    if (page === null) page = 1;
+
     dispatch({ type: LOADING });
     const { data } = await api.fetchPage(page);
 
