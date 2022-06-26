@@ -12,6 +12,25 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getPostsBySearch = async (req, res) => {
+  const searchQuery = req.query.searchQuery;
+  const page = 1;
+
+  try {
+    const title = new RegExp(searchQuery, "i");
+
+    const result = {};
+    result.page = page;
+
+    result.result = await Post.find({ name: title });
+    result.pages = result.result.length;
+
+    res.status(200).json(result);
+  } catch (e) {
+    res.status(404).json({ message: e.message });
+  }
+};
+
 // get all posts a page at a time from database
 export const getPage = async (req, res) => {
   try {

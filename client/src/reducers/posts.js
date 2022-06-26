@@ -1,4 +1,9 @@
-import { FETCH_POSTS, LOADING, ERROR } from "../constants/actionTypes";
+import {
+  FETCH_POSTS,
+  FETCH_POSTS_BY_SEARCH,
+  LOADING,
+  ERROR,
+} from "../constants/actionTypes";
 
 const postsReducer = (
   state = {
@@ -10,6 +15,7 @@ const postsReducer = (
 ) => {
   switch (action.type) {
     case FETCH_POSTS:
+    case FETCH_POSTS_BY_SEARCH:
       return {
         ...state,
         posts: {

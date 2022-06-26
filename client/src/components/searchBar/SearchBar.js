@@ -1,14 +1,19 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./searchBar.css";
 
 function SearchBar() {
   const [search, setSearch] = useState("");
 
+  let navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setSearch("");
+    if (search.trim()) {
+      navigate(`/posts/search?searchQuery=${search || "none"}`);
+    }
   };
 
   return (
