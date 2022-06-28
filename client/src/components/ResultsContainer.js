@@ -20,25 +20,30 @@ function ResultsContainer() {
   let query = useQuery();
 
   useEffect(() => {
-    dispatch(getPostsBySearch(query.get("searchQuery")));
+    dispatch(getPostsBySearch(query.get("searchQuery"), query.get("page")));
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [dispatch, query]);
 
-  const myState = useSelector((state) => state.posts);
+  const { posts, loading } = useSelector((state) => state.posts);
 
-  if (myState.posts.loading) return <div>Loading</div>;
+  if (!posts.result.length && !loading) {
+    return "No Results Found";
+  }
+
+  if (loading) return <div>Loading</div>;
   else {
     return (
       <div className="cards-container">
         <div className="cards">
-          {myState.posts.result.map((post) => (
+          {posts.result.map((post) => (
             <Post key={post._id} post={post} />
           ))}
         </div>
 
         <PaginationSearch
-          currentPage={myState.posts.page}
-          pages={myState.posts.pages}
+          currentPage={posts.page}
+          pages={posts.pages}
+          search={query.get("searchQuery")}
         />
       </div>
     );

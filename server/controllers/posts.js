@@ -14,7 +14,8 @@ export const getPosts = async (req, res) => {
 
 export const getPostsBySearch = async (req, res) => {
   const searchQuery = req.query.searchQuery;
-  const page = 1;
+  const page = parseInt(req.query.page);
+  const limit = 8;
 
   try {
     const title = new RegExp(searchQuery, "i");
@@ -22,8 +23,13 @@ export const getPostsBySearch = async (req, res) => {
     const result = {};
     result.page = page;
 
-    result.result = await Post.find({ name: title });
-    result.pages = result.result.length;
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const posts = await Post.find({ name: title });
+    result.pages = Math.ceil(posts.length / limit);
+
+    result.result = posts.slice(startIndex, endIndex);
 
     res.status(200).json(result);
   } catch (e) {

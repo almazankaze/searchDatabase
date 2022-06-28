@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import "./pagination.css";
 
-function PaginationSearch({ currentPage, pages }) {
+function PaginationSearch({ currentPage, pages, search }) {
+  let navigate = useNavigate();
+
+  const handleBtn = (number) => {
+    navigate(`/posts/search?searchQuery=${search}&page=${number}`);
+  };
+
   const addBtns = () => {
     let content = [];
     let start = currentPage;
@@ -14,9 +20,13 @@ function PaginationSearch({ currentPage, pages }) {
 
     if (currentPage !== 1) {
       content.push(
-        <buttun className="btn" key="prev">
+        <button
+          className="btn"
+          key="prev"
+          onClick={() => handleBtn(currentPage - 1)}
+        >
           prev
-        </buttun>
+        </button>
       );
     }
 
@@ -27,6 +37,7 @@ function PaginationSearch({ currentPage, pages }) {
             currentPage === i ? "btn num-btn active-btn" : "btn num-btn"
           }
           key={i}
+          onClick={() => handleBtn(i)}
         >
           {i}
         </button>
@@ -35,7 +46,11 @@ function PaginationSearch({ currentPage, pages }) {
 
     if (currentPage !== pages) {
       content.push(
-        <button className="btn" key="next">
+        <button
+          className="btn"
+          key="next"
+          onClick={() => handleBtn(currentPage + 1)}
+        >
           next
         </button>
       );

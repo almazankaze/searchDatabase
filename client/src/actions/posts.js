@@ -31,10 +31,10 @@ export const getPage = (page) => async (dispatch) => {
   }
 };
 
-export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+export const getPostsBySearch = (searchQuery, page) => async (dispatch) => {
   try {
     dispatch({ type: LOADING });
-    const { data } = await api.fetchPostsBySearch(searchQuery);
+    const { data } = await api.fetchPostsBySearch(searchQuery, page);
 
     dispatch({ type: FETCH_POSTS_BY_SEARCH, payload: data });
   } catch (e) {

@@ -12,8 +12,10 @@ function SearchBar() {
     e.preventDefault();
 
     if (search.trim()) {
-      navigate(`/posts/search?searchQuery=${search || "none"}`);
+      navigate(`/posts/search?searchQuery=${search || "none"}&page=${1}`);
     }
+
+    setSearch("");
   };
 
   return (
