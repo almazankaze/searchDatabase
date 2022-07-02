@@ -1,21 +1,23 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./searchBar.css";
 
 function SearchBar() {
-  const [search, setSearch] = useState("");
+  const formRef = useRef(null);
 
   let navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (search.trim()) {
-      navigate(`/posts/search?searchQuery=${search || "none"}&page=${1}`);
+    const searchTerm = formRef.current["searchTerm"].value;
+
+    if (searchTerm) {
+      navigate(`/posts/search?searchQuery=${searchTerm || "none"}&page=${1}`);
     }
 
-    setSearch("");
+    formRef.current.reset();
   };
 
   return (
@@ -24,14 +26,14 @@ function SearchBar() {
         className="search-form"
         autoComplete="off"
         noValidate
+        ref={formRef}
         onSubmit={handleSubmit}
       >
         <input
           type="text"
           className="search-input"
           placeholder="Search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          name="searchTerm"
         ></input>
         <button className="search-btn" type="submit"></button>
       </form>
